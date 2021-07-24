@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solraccept.solraccept.dao.JournalarticleMapper">
+    <select id="queryList" resultType="com.solraccept.solraccept.bean.solr.Journalarticle">
+      	SELECT
+            J.ID_ AS ID,
+            CM.TITLE,J.CONTENT,J.USERNAME,L.PARENTLAYOUTID,
+            J.CREATEDATE,J.GROUPID, CM.URL,CM.CATEGORYID,L.NAME,B.NAME AS GROUPNAME,
+            ac.categoryName, ac.cateGoryFlag
+        FROM JOURNALARTICLE J INNER JOIN CMSPUBLISHEDARTICLE CM
+        ON J.RESOURCEPRIMKEY=CM.RESOURCEPRIMKEY
+        INNER JOIN  GROUP_ B ON CM.GROUPID =  B.GROUPID
+        left join Articlecategory ac on CM.categoryId = ac.categoryId
+        LEFT JOIN  LAYOUT L  ON
+            CM.PLID=L.PLID
+        WHERE J.STATUS = 0  AND CM.STATUS=0 AND J.RESOURCEPRIMKEY IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                            #{item}
+        </foreach>
+    </select>
+</mapper>

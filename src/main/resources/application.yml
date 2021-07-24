@@ -1,0 +1,35 @@
+server:
+  port: 8088
+  tomcat:
+    max-connections: 300
+spring:
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+  rabbitmq:
+    host: 116.63.162.29
+    port: 5672
+    username: root
+    password: snswwb
+    listener: 
+      simple:
+        retry:
+          max-attempts: 5
+          enabled: true
+          initial-interval: 5000ms
+  data:
+      solr:
+#        host: http://localhost:8983/solr
+        host: http://192.168.13.179:8020/solr
+  datasource:
+    username: sa
+    password: hdit@123
+    url: jdbc:sqlserver://192.168.13.179;database=snjyh
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
