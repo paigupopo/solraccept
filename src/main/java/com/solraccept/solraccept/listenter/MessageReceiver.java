@@ -51,7 +51,7 @@ public class MessageReceiver {
 		channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
 	}
 
-	@RabbitListener(queues = {"CMS-pages-static-information2"},concurrency = "20")
+	@RabbitListener(queues = {"CMS-pages-static-information-solr"},concurrency = "20")
 	@RabbitHandler
 	public void onTodo(Message message, Channel channel) throws Exception{
 		String msg = new String(message.getBody());
